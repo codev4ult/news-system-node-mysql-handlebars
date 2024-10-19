@@ -3,8 +3,10 @@ import dotenv from "dotenv";
 import path from "path";
 import exphbs from "express-handlebars";
 import { fileURLToPath } from "url";
+import homeRoutes from  "./routes/homeRoutes.js";
 import newsRoutes from "./routes/newsRoutes.js";
-import authorRoutes from "./routes/authorRoutes.js"; // Adicione a extensão .js
+import authorRoutes from "./routes/authorRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
 import connectDB from "./config/dbConnection.js";
 
 dotenv.config();
@@ -28,18 +30,27 @@ app.engine(
         partialsDir: [path.join(__dirname, "views/partials")],
         helpers: {
             formatDate: (date) => {
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                return new Date(date).toLocaleDateString('pt-BR', options);
-            }
-        }
+                const options = { year: "numeric", month: "long", day: "numeric" };
+                return new Date(date).toLocaleDateString("pt-BR", options);
+            },
+            // Helper customizado para cortar o texto
+            truncate: function (text, length) {
+                if (text.length > length) {
+                    return text.substring(0, length) + "...";
+                }
+                return text;
+            },
+        },
     })
 );
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 
 // Rotas
-app.use('/', newsRoutes);
-app.use('/authors', authorRoutes);
+app.use("/", homeRoutes);
+app.use("/news", newsRoutes);
+app.use("/author", authorRoutes);
+app.use("/category", categoryRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

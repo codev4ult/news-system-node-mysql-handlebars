@@ -1,0 +1,22 @@
+{{> header}}
+
+<div class="container col-lg-8">
+
+    <h1 class="text-center p-3">Register new category</h1>
+
+   {{#if message}}
+        <div class="alert alert-{{message.type}}" role="alert">
+            {{message.text}}
+        </div>
+    {{/if}}
+
+    <form action="/category/insert" method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>            
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+</div>
+
+{{> footer}}

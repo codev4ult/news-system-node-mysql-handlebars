@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Rota para renderizar o formulário de registro de um novo autor
 router.get("/register", (req, res) => {
-    res.render("authorForm", { message: null });
+    res.render("authorForm", { message: null, title : "Insert news authors" });
 });
 
 // Rota para processar o registro do autor
@@ -42,11 +42,13 @@ router.post("/insert", async (req, res) => {
         await newAuthor.save();
         res.render("authorForm", {
             message: { type: "success", text: "Author created successfully!" },
+            title : "Insert news authors"
         });
     } catch (error) {
         console.log(error);
         res.render("authorForm", {
             message: { type: "danger", text: "Something went wrong when registering the author" },
+            title : "Insert news authors"
         });
     }
 });

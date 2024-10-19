@@ -1,48 +1,45 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-const authorSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        trim: true,
+const authorSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        surname: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        username: {
+            type: String,
+            required: true,
+            unique: true,
+            trim: true,
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            trim: true,
+        },
+        password: {
+            type: String,
+            required: true,
+            unique: true,
+            trim: true,
+        },
+        avatar: {
+            type: String,
+            trim: true,
+        },
     },
-    surname: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-    },
-    password: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-    },
-    avatar: {
-        type: String,
-        trim: true,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now,
-    },
-});
+    {
+        timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" },
+    }
+);
 
 authorSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();

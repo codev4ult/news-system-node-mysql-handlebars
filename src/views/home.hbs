@@ -1,21 +1,16 @@
 {{>header }}
 
-<div class="container">
-    <h1 class="mt-5">User List</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Latest News</h1>
     <div class="row">
-        {{#each authors}}
-        <div class="col-md-4 mb-4 text-center">
-            <div class="card">                
+        {{#each news}}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="/uploads/{{this.image}}" class="card-img-top" alt="News Image">
                 <div class="card-body">
-                    <h5 class="card-title">
-                        <img class="avatar" src="{{avatar}}" class="card-img-top" alt="{{name}} {{surname}}"> 
-                        {{name}} {{surname}}
-                    </h5>
-                    <p class="card-text">Username: {{username}}</p>                    
-                    <p class="card-text">Email: {{email}}</p>
-                    <p class="card-text">Created At: {{formatDate createdAt}}</p> <!-- Use the helper here -->
-                        <p class="card-text">Updated At: {{formatDate updatedAt}}</p> <!-- Use the helper here -->
-                    <p class="card-text">Password: {{password}}</p>
+                    <h5 class="card-title">{{this.title}}</h5>
+                    <p class="card-text">{{truncate this.content 100}}...</p> <!-- Resumo do conteúdo -->
+                    <a href="/news/show/{{this._id}}" class="btn btn-primary">Read More</a>
                 </div>
             </div>
         </div>
