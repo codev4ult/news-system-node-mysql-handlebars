@@ -1,0 +1,26 @@
+{{>header }}
+
+<div class="container">
+    <h1 class="mt-5">User List</h1>
+    <div class="row">
+        {{#each authors}}
+        <div class="col-md-4 mb-4 text-center">
+            <div class="card">                
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <img class="avatar" src="{{avatar}}" class="card-img-top" alt="{{name}} {{surname}}"> 
+                        {{name}} {{surname}}
+                    </h5>
+                    <p class="card-text">Username: {{username}}</p>                    
+                    <p class="card-text">Email: {{email}}</p>
+                    <p class="card-text">Created At: {{formatDate createdAt}}</p> <!-- Use the helper here -->
+                        <p class="card-text">Updated At: {{formatDate updatedAt}}</p> <!-- Use the helper here -->
+                    <p class="card-text">Password: {{password}}</p>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+{{>footer }}
