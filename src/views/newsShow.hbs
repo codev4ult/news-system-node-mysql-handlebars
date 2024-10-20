@@ -1,10 +1,9 @@
 {{>header }}
 
-    <div class="container mt-5">
-        <h1>{{news.title}}</h1>
-        <img src="/uploads/{{news.image}}" class="img-fluid mb-4" alt="News Image">
-        <p>{{news.content}}</p>
-        <a href="/" class="btn btn-secondary">Back to Home</a>
-    </div>
+<div class="container mt-5 news">
+    <h1>{{news.title}}</h1>
+    <img class="float-start pe-3" src="/assets/img/{{news.image}}" class="img-fluid mb-4" alt="{{news.title}}">
+    <p>{{news.content}}</p>
+</div>
 
 {{>footer }}
