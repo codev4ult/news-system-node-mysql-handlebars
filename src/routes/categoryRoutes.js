@@ -1,6 +1,5 @@
 import express from "express";
 import Category from "../models/categorySchema.js";
-import bcrypt from "bcrypt";
 
 const router = express.Router();
 

@@ -3,10 +3,11 @@ import dotenv from "dotenv";
 import path from "path";
 import exphbs from "express-handlebars";
 import { fileURLToPath } from "url";
-import homeRoutes from  "./routes/homeRoutes.js";
-import newsRoutes from "./routes/newsRoutes.js";
-import authorRoutes from "./routes/authorRoutes.js";
-import categoryRoutes from "./routes/categoryRoutes.js";
+import homeRoutes from "./routes/homeRoutes.js";
+import crudRoutes from "./routes/crudRoutes.js";
+// import newsRoutes from "./routes/newsRoutes.js";
+// import authorRoutes from "./routes/authorRoutes.js";
+// import categoryRoutes from "./routes/categoryRoutes.js";
 import connectDB from "./config/dbConnection.js";
 
 dotenv.config();
@@ -27,7 +28,10 @@ app.engine(
     exphbs.engine({
         defaultLayout: "template",
         extname: ".hbs",
-        partialsDir: [path.join(__dirname, "views/partials")],
+        partialsDir: [
+            path.join(__dirname, "views/partials"), 
+            path.join(__dirname, "views/dashboard"), //Para carregar as partials dentro da pasta dashboard
+        ],
         helpers: {
             formatDate: (date) => {
                 const options = { year: "numeric", month: "long", day: "numeric" };
@@ -48,9 +52,10 @@ app.set("views", path.join(__dirname, "views"));
 
 // Rotas
 app.use("/", homeRoutes);
-app.use("/news", newsRoutes);
-app.use("/author", authorRoutes);
-app.use("/category", categoryRoutes);
+app.use("/dashboard", crudRoutes);
+// app.use("/news", newsRoutes);
+// app.use("/author", authorRoutes);
+// app.use("/category", categoryRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

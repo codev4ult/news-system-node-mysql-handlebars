@@ -1,0 +1,44 @@
+{{>header}}
+
+<div class="container">
+    <h1>Dashboard</h1>
+
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Título</th>
+                <th scope="col">Imagem</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Categoria</th>
+                 <th scope="col">data</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each news}}
+            <tr>
+                <th scope="row">{{@index}}</th> <!-- Exibe o índice (id) -->
+                <td>{{this.title}}</td>        <!-- Título da notícia -->
+                <td><img src="/assets/img/{{this.image}}" width="80px" height="50px"></td>   <!-- Imagem da notícia -->
+                <td>{{this.author.name}}</td>        <!-- Autor da notícia -->
+                <td>{{this.category.name}}</td      <!-- Categoria da notícia -->
+                <td> {{formatDate this.createdAt}}</td      <!-- Criação da notícia -->
+              <td>
+                    <div class="d-flex">
+                        <a href="/news/edit/{{this._id}}" class="btn btn-primary me-2">
+                            <i class="bi bi-pencil"></i> 
+                        </a>
+                        <a href="/news/delete/{{this._id}}" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> 
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+</div>
+
+{{>footer}}

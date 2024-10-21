@@ -7,12 +7,12 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     try {
         const news = await News.find().lean(); // Busca todas as notícias do banco de dados
-        res.render("home", { news ,  title : "Home Page"}); // Renderiza o template "home" passando as notícias
+        res.render("news", { news ,  title : "News Page"}); // Renderiza o template "news" passando as notícias
     } catch (error) {
         console.log(error);
-        res.render("home", {           
+        res.render("news", {           
             message: { type: "danger", text: "Error fetching news" },
-            title : "Home Page",
+            title : "News Page",
         });
     }
 });
@@ -22,15 +22,15 @@ router.get("/news/show/:id", async (req, res) => {
     try {
         const newsItem = await News.findById(req.params.id).lean();
         if (!newsItem) {
-            return res.render("newsShow", {
+            return res.render("news_post", {
                 message: { type: "danger", text: "News not found" },
                 title : "Show news"
             });
         }
-        res.render("newsShow", { news: newsItem, title : "Show news" }); // Renderiza a notícia completa
+        res.render("news_post", { news: newsItem, title : "Show news" }); // Renderiza a notícia completa
     } catch (error) {
         console.log(error);
-        res.render("newsShow", {
+        res.render("news_post", {
             message: { type: "danger", text: "Error fetching news" },
             title : "Show news"
         });
