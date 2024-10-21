@@ -46,10 +46,10 @@ router.get("/news/register", isAuthenticated, async (req, res) => {
     try {
         const authors = await Author.find().lean();
         const categories = await Category.find().lean();
-        res.render("newsForm", { authors, categories, title: "Inserting news" }); // Renderiza o formulário de criação de notícias
+        res.render("dashboard/newsForm", { authors, categories, title: "Inserting news" }); // Renderiza o formulário de criação de notícias
     } catch (error) {
         console.log(error);
-        res.render("newsForm", {
+        res.render("dashboard/newsForm", {
             message: { type: "danger", text: "Error fetching authors or categories" },
             title: "Insert news",
         });
@@ -78,19 +78,19 @@ router.post("/news/insert", isAuthenticated, upload.single("image"), async (req,
 
             await news.save();
 
-            res.render("newsForm", {
+            res.render("dashboard/newsForm", {
                 message: { type: "success", text: "News created successfully!" },
                 title: "Insert news",
             });
         } else {
-            res.render("newsForm", {
+            res.render("dashboard/newsForm", {
                 message: { type: "danger", text: "Notícia já está cadastrada" },
                 title: "Error: Insert news",
             });
         }
     } catch (error) {
         console.log(error);
-        res.render("newsForm", {
+        res.render("dashboard/newsForm", {
             message: { type: "danger", text: `Error creating news post: ${error.message}` },
             title: "Insert news",
         });
@@ -99,7 +99,7 @@ router.post("/news/insert", isAuthenticated, upload.single("image"), async (req,
 
 // Rota para renderizar o formulário de registro de um novo autor
 router.get("/author/register", isAuthenticated, (req, res) => {
-    res.render("authorForm", { message: null, title: "Insert news authors" });
+    res.render("dashboard/authorForm", { message: null, title: "Insert news authors" });
 });
 
 // Rota para inserir o registro do autor
@@ -110,13 +110,13 @@ router.post("/author/insert", isAuthenticated, async (req, res) => {
         const existingAuthor = await Author.findOne({ username });
 
         if (existingAuthor) {
-            return res.status(400).render("authorForm", {
+            return res.status(400).render("dashboard/authorForm", {
                 message: { type: "danger", text: "Author already exists" },
             });
         }
 
         if (!name || !surname || !email || !password) {
-            return res.render("authorForm", {
+            return res.render("dashboard/authorForm", {
                 message: { type: "danger", text: "Please fill in all fields" },
             });
         }
@@ -133,13 +133,13 @@ router.post("/author/insert", isAuthenticated, async (req, res) => {
         });
 
         await newAuthor.save();
-        res.render("authorForm", {
+        res.render("dashboard/authorForm", {
             message: { type: "success", text: "Author created successfully!" },
             title: "Insert news authors",
         });
     } catch (error) {
         console.log(error);
-        res.render("authorForm", {
+        res.render("dashboard/authorForm", {
             message: { type: "danger", text: "Something went wrong when registering the author" },
             title: "Insert news authors",
         });
@@ -148,7 +148,7 @@ router.post("/author/insert", isAuthenticated, async (req, res) => {
 
 // Rota para renderizar o formulário de registro de um novo autor
 router.get("/category/register", isAuthenticated, (req, res) => {
-    res.render("categoryForm", { message: null, title: "Insert news categories" });
+    res.render("dashboard/categoryForm", { message: null, title: "Insert news categories" });
 });
 
 // Rota para processar o registro do autor
@@ -159,14 +159,14 @@ router.post("/category/insert", isAuthenticated, async (req, res) => {
         const existingCategory = await Category.findOne({ name });
 
         if (existingCategory) {
-            return res.status(400).render("categoryForm", {
+            return res.status(400).render("dashboard/categoryForm", {
                 message: { type: "danger", text: "Category already exists" },
                 title: "Insert news categories",
             });
         }
 
         if (!name) {
-            return res.render("categoryForm", {
+            return res.render("dashboard/categoryForm", {
                 message: { type: "danger", text: "Please fill in all fields" },
                 title: "Insert news categories",
             });
@@ -177,13 +177,13 @@ router.post("/category/insert", isAuthenticated, async (req, res) => {
         });
 
         await newCategory.save();
-        res.render("categoryForm", {
+        res.render("dashboard/categoryForm", {
             message: { type: "success", text: "Category created successfully!" },
             title: "Insert news categories",
         });
     } catch (error) {
         console.log(error);
-        res.render("categoryForm", {
+        res.render("dashboard/categoryForm", {
             message: { type: "danger", text: "Something went wrong when registering the category" },
             title: "Insert news categories",
         });
