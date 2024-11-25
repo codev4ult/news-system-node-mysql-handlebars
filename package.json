@@ -5,7 +5,7 @@
   "main": "./src/main.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon main.js",
+    "start": "nodemon -L main.js",
     "dev": "node --watch ./src/main.js"
   },
   "author": "",

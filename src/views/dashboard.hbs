@@ -1,9 +1,10 @@
 {{>header}}
 
 <div class="container">
-    <h1>Dashboard</h1>
+    <h1>Dashboard</h1>  
 
-    <table class="table table-striped align-middle">
+    <table class="table table-striped align-middle caption-top">
+        <caption class="f2">Listing News</caption>
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -18,7 +19,7 @@
         <tbody>
             {{#each news}}
             <tr>
-                <th scope="row">{{@index}}</th> <!-- Exibe o índice (id) -->
+                <th scope="row">{{this._id}}</th> <!-- Exibe o índice (id) -->
                 <td>{{this.title}}</td>        <!-- Título da notícia -->
                 <td><img src="/assets/img/{{this.image}}" width="80px" height="50px"></td>   <!-- Imagem da notícia -->
                 <td>{{this.author.name}}</td>        <!-- Autor da notícia -->
@@ -38,6 +39,37 @@
             {{/each}}
         </tbody>
     </table>
+    
+{{#if (hasPages totalPages)}}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {{#if (gt currentPage 1)}}
+                <li class="page-item">
+                    <a class="page-link" href="/dashboard?page={{subtract currentPage 1}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {{/if}}
+
+            {{#each (generatePages currentPage totalPages)}}
+                <li class="page-item {{#if (eq currentPage this)}}active{{/if}}">
+                    <a class="page-link" href="/dashboard?page={{this}}">{{this}}</a>
+                </li>
+            {{/each}}
+
+            {{#if (lt currentPage totalPages)}}
+                <li class="page-item">
+                    <a class="page-link" href="/dashboard?page={{add currentPage 1}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    </nav>
+{{else}}
+    <p class="text-center">No pages available</p>
+{{/if}}
+
 
 </div>
 

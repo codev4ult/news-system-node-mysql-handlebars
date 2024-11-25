@@ -22,23 +22,31 @@ const upload = multer({ storage });
 
 //Rota para exibir a página inicial Dashboard
 router.get("/", isAuthenticated, async (req, res) => {
-   
     try {
+        const page = parseInt(req.query.page) || 1; // Página atual
+        const limit = 2; // Número de notícias por página
+        const offset = (page - 1) * limit; // Posição inicial dos resultados
+
+        // Buscar o total de notícias e calcular o número de páginas
+        const totalNews = await News.countDocuments();
+        const totalPages = Math.ceil(totalNews / limit);
+
         //const newsList = await News.find().lean(); // Busca todas as notícias
-        const newsList = await News.find().populate('author').populate('category').lean();
- 
-        return res.render("dashboard", { 
-            title: "Dashboard", 
-            news: newsList // Passa a lista de notícias para a view
+        const newsList = await News.find().populate("author").populate("category").skip(offset).limit(limit).lean();
+
+        return res.render("dashboard", {
+            title: "Dashboard",
+            news: newsList, // Passa a lista de notícias para a view
+            currentPage: page,
+            totalPages: totalPages
         });
     } catch (error) {
         console.log(error);
         return res.render("dashboard", {
             title: "Dashboard",
-            message: { type: "danger", text: "Error fetching news." }
+            message: { type: "danger", text: "Error fetching news." },
         });
     }
-
 });
 
 //Rota para exibir o form de inserção de notícias

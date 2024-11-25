@@ -1,0 +1,41 @@
+.
+├── config
+│   └── dbConnection.js
+├── helpers
+│   ├── handlebars.js
+│   ├── hbsHelper.js
+│   └── sessionHelper.js
+├── list.txt
+├── main.js
+├── middleware
+│   └── auth.js
+├── models
+│   ├── authorSchema.js
+│   ├── categorySchema.js
+│   ├── newsSchema.js
+│   └── visitorSchema.js
+├── routes
+│   ├── authorRoutes.js
+│   ├── categoryRoutes.js
+│   ├── crudRoutes.js
+│   ├── homeRoutes.js
+│   ├── loginRoutes.js
+│   └── newsRoutes.js
+└── views
+    ├── dashboard
+    │   ├── authorForm.hbs
+    │   ├── categoryForm.hbs
+    │   └── newsForm.hbs
+    ├── dashboard.hbs
+    ├── layouts
+    │   └── template.hbs
+    ├── login.hbs
+    ├── news.hbs
+    ├── news_post.hbs
+    └── partials
+        ├── footer.hbs
+        ├── header.hbs
+        ├── logo.hbs
+        └── nav.hbs
+
+10 directories, 29 files
