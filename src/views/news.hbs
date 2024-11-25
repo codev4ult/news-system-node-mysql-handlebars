@@ -1,0 +1,21 @@
+{{>header }}
+
+<div class="container mt-5">
+    <h1 class="mb-4">Latest News</h1>
+    <div class="row">
+        {{#each news}}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="/assets/img/{{this.image}}" class="card-img-top" alt="News Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.title}}</h5>
+                    <p class="card-text">{{truncate this.content 100}}...</p> <!-- Resumo do conteúdo -->
+                    <a href="/news/show/{{this._id}}" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+{{>footer }}

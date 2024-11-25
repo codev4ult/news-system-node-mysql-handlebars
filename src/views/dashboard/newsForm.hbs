@@ -1,0 +1,70 @@
+{{> header}}
+
+<div class="container col-lg-8">
+
+    <h1 class="text-center p-3">Create a News Post</h1>
+
+    {{#if message}}
+    <div class="alert alert-{{message.type}}" role="alert">
+        {{message.text}}
+    </div>
+    {{/if}}
+
+    <form action="/dashboard/news/insert" method="POST" enctype="multipart/form-data">
+        <!-- Título -->
+        <div class="form-group mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Enter news title" required>
+        </div>
+
+        <!-- Conteúdo -->
+        <div class="form-group mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" id="content" name="content" rows="5" placeholder="Enter news content"
+                required></textarea>
+        </div>
+
+        <!-- Categoria -->
+        <div class="form-group mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" name="category" required>
+                {{#each categories}}
+                <option value="{{this._id}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <!-- Autor -->
+        <div class="form-group mb-3">
+            <label for="author" class="form-label">Author</label>
+            <select class="form-select" id="author" name="author" required>
+                {{#each authors}}
+                <option value="{{this._id}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <!-- Imagem -->
+        <div class="form-group mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" class="form-control" id="image" name="image" required>
+        </div>
+
+        <!-- Status -->
+        <div class="form-group mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+                <option value="archived">Archived</option>
+            </select>
+        </div>
+
+        <!-- Botão de submissão -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit News</button>
+        </div>
+    </form>
+</div>
+
+{{> footer}}
